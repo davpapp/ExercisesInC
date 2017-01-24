@@ -7,17 +7,18 @@ Modified version of an example from Chapter 2.5 of Head First C.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <regex.h>
 
-#define NUM_TRACKS 5
+#define NUM_TRACKS 6
 
 char tracks[][80] = {
     "So What",
     "Freddie Freeloader",
     "Blue in Green",
     "All Blues",
-    "Flamenco Sketches"
+    "Flamenco Sketches",
+    "043"
 };
-
 
 // Finds all tracks that contain the given string.
 //
@@ -26,9 +27,9 @@ void find_track(char search_for[])
 {
     int i;
     for (i=0; i<NUM_TRACKS; i++) {
-	if (strstr(tracks[i], search_for)) {
-	    printf("Track %i: '%s'\n", i, tracks[i]);
-	}
+    	if (strstr(tracks[i], search_for)) {
+    	    printf("Track %i: '%s'\n", i, tracks[i]);
+    	}
     }
 }
 
@@ -37,7 +38,24 @@ void find_track(char search_for[])
 // Prints track number and title.
 void find_track_regex(char pattern[])
 {
-    // TODO: fill this in
+    regex_t re;
+
+    // Reads a regex pattern matcher into variable re.
+    int status = regcomp(&re, pattern, REG_EXTENDED);
+    if (status) {
+        printf("Regex error...");
+        return;
+    }
+
+    int i;   
+    for (i=0; i<NUM_TRACKS; i++) {
+        // Checks whether string matches regex pattern re.
+        if (!regexec(&re, tracks[i], (size_t) 0, NULL, 0)) {
+            printf("Track %i: '%s'\n", i, tracks[i]);
+        }
+    }
+
+    regfree(&re);
 }
 
 // Truncates the string at the first newline, if there is one.
@@ -58,8 +76,8 @@ int main (int argc, char *argv[])
     fgets(search_for, 80, stdin);
     rstrip(search_for);
 
-    find_track(search_for);
-    //find_track_regex(search_for);
+    //find_track(search_for);
+    find_track_regex(search_for);
 
     return 0;
 }
