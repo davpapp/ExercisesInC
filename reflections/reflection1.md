@@ -12,16 +12,6 @@ In terms of reading and exercises, we aimed to complete two chapters of both HFC
 
 One unexpected thing that was not originally amongst my sprint goal was to become more efficient at pair-programming and using Git. I already knew the basics, but my teammates had tons of prior experience with more formal development tools such as lint, makefiles, and more. I absorbed much of this and am confident that this will aid me in a more official programming environment. Overall, I think the sprint was very successful and if I have any concerns, it’s regarding the algorithms and math group theory behind solving a Rubik’s cube optimally.
 
-### Exam Question
-Give an example of when you might use a pointer to a pointer in C? What about a pointer to a pointer to a pointer?
-
-### Exam Question Solution
-Source: Head First C
-
-A matrix or 2 dimensional array is represented with a pointer to a pointer. For example, in a real world setting, the if we take a library of books, the first pointer might represent the location of a shelf of Young Adult books. Then a pointer to a pointer would represent the locations of all the shelves in the library. 
-
-Similarly, a pointer to a pointer to a pointer represents a 3 dimensional array. We can use this to represent a Rubik’s cube, or to continue our earlier analogy, to represent a collection of libraries.
-
 
 ### Reading Questions
 
@@ -42,3 +32,14 @@ Exercise 03: https://github.com/davpapp/ExercisesInC/tree/master/exercises/ex03
 
 All reading question answers are in the following folder (in markdown format):
 https://github.com/davpapp/ExercisesInC/tree/master/reading_questions
+
+
+### Exam Question
+Give an example of when you might use a pointer to a pointer in C? What about a pointer to a pointer to a pointer?
+
+### Exam Question Solution
+Source: Head First C
+
+A matrix or 2 dimensional array is represented with a pointer to a pointer. For example, in a real world setting, the if we take a library of books, the first pointer might represent the location of a shelf of Young Adult books. Then a pointer to a pointer would represent the locations of all the shelves in the library. 
+
+Similarly, a pointer to a pointer to a pointer represents a 3 dimensional array. We can use this to represent a Rubik’s cube, or to continue our earlier analogy, to represent a collection of libraries.
