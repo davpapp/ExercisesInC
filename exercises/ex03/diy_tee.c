@@ -30,10 +30,11 @@ int main(int argc, char *argv[]) {
 	for (count; count < argc; count++) {
 		FILE *in_file = fopen(argv[first_file], "r");
 		char word[20];
-		/* With this approach, the input file is opened and closed for each file that needs to be written.
-		It would be more efficient to keep each file open at all times (in some array) and only open and close
-		each one once.
-		However, I did not implement this due to time constraints.
+		/* With this approach, the input file is opened and closed for each
+		file that needs to be written. It would be more efficient to keep 
+		each file open at all times (in some array) and only open and close
+		each one once. However, I did not implement this due to time 
+		constraints.
 		*/
 
 		FILE *out_file;
@@ -45,8 +46,9 @@ int main(int argc, char *argv[]) {
 		}
 		while(fscanf(in_file, "%20s", word) == 1) {
 			/*
-			This was the easiest way I found to copy the contents of the input file to the output file.
-			However, this misses line breaks.
+			This was the easiest way I found to copy the contents of 
+			the input file to the output file. However, this misses
+			line breaks.
 			*/
 			fprintf(out_file, "%s ", word);
 		}
