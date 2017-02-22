@@ -34,10 +34,15 @@ https://github.com/davpapp/ExercisesInC/tree/master/reading_questions
 
 ### Exam Question
 
-Write a program that counts the number of bits set in an integer using bitwise operations. Do not use built in functions like popcount.
+Given two integers A and B, write a program that counts the number of bits that need to be flipped to get from A to B. Do not use built in functions like popcount.
 
 ### Exam Question Solution
 Source: Think OS Chapter 5 (Bitwise Operations)
+
+int numToFlip(int A, int B) {
+	int n = A ^ B;
+	return bitCount(n);
+}
 
 int bitCount (int value) {
 	int count = 0;
