@@ -18,6 +18,7 @@ int main(int argc, char *argv[]) {
 	char type = 'w';
 
 	while ((ch = getopt(argc, argv, "a")) != EOF) {
+		// iterate through options
 		switch(ch) {
 			case 'a':
 				// Set to append mode
@@ -35,6 +36,7 @@ int main(int argc, char *argv[]) {
 
 	
 	for (count; count < argc; count++) {
+		// iterate through files
 		FILE *in_file = fopen(argv[first_file], "r");
 		char word[20];
 		/* With this approach, the input file is opened and closed for each
