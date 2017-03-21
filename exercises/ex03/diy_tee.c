@@ -1,11 +1,17 @@
+/*
+DIY version of tee with ability to read and write to standard
+output and files. Supports "-a" option (append to given files
+rather than overwriting), but not the other options.
+
+Author: David Papp
+Class: Software Systems
+*/
 
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 
-//int main() {
 int main(int argc, char *argv[]) {
-
 	char ch;
 	int count = 2;
 	int first_file = 1;
@@ -14,6 +20,7 @@ int main(int argc, char *argv[]) {
 	while ((ch = getopt(argc, argv, "a")) != EOF) {
 		switch(ch) {
 			case 'a':
+				// Set to append mode
 				type = 'a';
 				count = 1;
 				first_file = 0;
@@ -60,7 +67,7 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-"""
+/*
 Reflection:
 3) One thing that slowed me down was the fact that the indexing for argv[] depends on whether there 
 is an option entered. I did not notice this at first, and this created many corrupt files. I implemented a 
@@ -72,4 +79,4 @@ the words in the input file. This would eliminate the need to close and reopen t
 
 4) I couldn't find the source code for the real tee.c, just the documentation. The real tee has more options and better 
 error checking. My solution is scrappy in comparison and relies on a few hacks to get it working. 
-"""
+*/
