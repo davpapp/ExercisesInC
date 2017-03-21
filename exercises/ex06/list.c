@@ -1,10 +1,9 @@
-/* Example code for Exercises in C.
-
+/* 
+C implementation of a Linked List.
 Based on an example from http://www.learn-c.org/en/Linked_lists
 
-Copyright 2016 Allen Downey
-License: Creative Commons Attribution-ShareAlike 3.0
-
+Author: David Papp
+Class: Software Systems
 */
 
 #include <stdio.h>
