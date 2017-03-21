@@ -78,6 +78,9 @@ void push(Node **list, int val) {
  * returns: number of nodes removed
  */
 int remove_by_value(Node **list, int val) {
+	if (*list == NULL) {
+		return 0;
+	}
     int count = 0;
     Node* current = *list;
     while (current->next != NULL) {
@@ -136,4 +139,13 @@ int main() {
 
     reverse(list);
     print_list(list);
+
+    // Test with NULL pointer
+    Node *head_null = NULL;
+    Node **null_list = &head_null;
+    print_list(null_list);
+    remove_by_value(null_list, 3);
+    print_list(null_list);
+    reverse(null_list);
+    print_list(null_list);
 }
