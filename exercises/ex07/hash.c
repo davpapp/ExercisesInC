@@ -1,4 +1,10 @@
-/* Example code for Exercises in C.
+/* Exercise 7 for Software Systems
+
+David Papp
+
+This code is a basic implementation of a hash table. The hash functions 
+are very primitive, but the goal is to understand the structure of a 
+hashtable.
 
 Copyright 2016 Allen Downey
 License: Creative Commons Attribution-ShareAlike 3.0
@@ -17,8 +23,8 @@ License: Creative Commons Attribution-ShareAlike 3.0
 typedef struct {
     enum Type {INT, STRING} type;
     union {
-	int i;
-	char *s;
+		int i;
+		char *s;
     };
 } Value;
 
@@ -61,16 +67,16 @@ Value *make_string_value(char *s)
 void print_value (Value *value) 
 {
     if (value == NULL) {
-	printf ("%p", value);
-	return;
+		printf ("%p", value);
+		return;
     }
     switch (value->type) {
-    case INT:
-	printf ("%d", value->i);
-	break;
-    case STRING:
-	printf ("%s", value->s);
-	break;
+	    case INT:
+			printf ("%d", value->i);
+			break;
+	    case STRING:
+			printf ("%s", value->s);
+			break;
     }
 }
 
@@ -151,8 +157,8 @@ int hash_string(void *p)
     int i = 0;
 
     while (s[i] != 0) {
-	total += s[i];
-	i++;
+		total += s[i];
+		i++;
     }
     return total;
 }
@@ -179,8 +185,7 @@ int hash_hashable(Hashable *hashable)
  */
 int equal_int (void *ip, void *jp)
 {
-    // FILL THIS IN!
-    return 0;
+    return *(int*)ip == *(int*)jp;
 }
 
 
@@ -193,8 +198,7 @@ int equal_int (void *ip, void *jp)
  */
 int equal_string (void *s1, void *s2)
 {
-    // FILL THIS IN!
-    return 0;
+    return strcmp((char*)s1, (char*)s2);
 }
 
 
@@ -208,8 +212,7 @@ int equal_string (void *s1, void *s2)
  */
 int equal_hashable(Hashable *h1, Hashable *h2)
 {
-    // FILL THIS IN!
-    return 0;
+	return h1->key == h2->key;
 }
 
 
@@ -276,7 +279,7 @@ void print_node(Node *node)
 void print_list(Node *node)
 {
     if (node == NULL) {
-	return;
+		return;
     }
     print_hashable(node->key);
     printf ("value %p\n", node->value);
@@ -297,7 +300,12 @@ Node *prepend(Hashable *key, Value *value, Node *rest)
 /* Looks up a key and returns the corresponding value, or NULL */
 Value *list_lookup(Node *list, Hashable *key)
 {
-    // FILL THIS IN!
+    Node* n = list;
+    while (n) {
+    	if (n->key == key) 
+    		return n->value;
+    	n = n->next;
+    }
     return NULL;
 }
 
@@ -319,7 +327,7 @@ Map *make_map(int n)
     map->n = n;
     map->lists = (Node **) malloc (sizeof (Node *) * n);
     for (i=0; i<n; i++) {
-	map->lists[i] = NULL;
+		map->lists[i] = NULL;
     }
     return map;
 }
@@ -342,15 +350,16 @@ void print_map(Map *map)
 /* Adds a key-value pair to a map. */
 void map_add(Map *map, Hashable *key, Value *value)
 {
-    // FILL THIS IN!
+    int hash = hash_hashable(key);
+    map->lists[hash] = make_node(key, value, map->lists[hash]);
 }
 
 
 /* Looks up a key and returns the corresponding value, or NULL. */
 Value *map_lookup(Map *map, Hashable *key)
 {
-    // FILL THIS IN!
-    return NULL;
+    int hash = hash_hashable(key);
+    return list_lookup(map->lists[hash], key);
 }
 
 
