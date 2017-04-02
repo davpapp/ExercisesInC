@@ -302,8 +302,9 @@ Value *list_lookup(Node *list, Hashable *key)
 {
     Node* n = list;
     while (n) {
-    	if (n->key == key) 
+    	if (n->key == key) {
     		return n->value;
+    	}
     	n = n->next;
     }
     return NULL;
