@@ -258,4 +258,10 @@ Counter: 4.524 seconds
 Counter mutex: 20.778 seconds
 
 Synchronization is ~5 times slower.
+
+
+
+
+There is minimal overhead because the semaphores are small (integer) variables
+and there is only one for each thread.
 */
