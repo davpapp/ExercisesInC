@@ -250,3 +250,12 @@ int main ()
     check_array (shared);
     return 0;
 }
+
+/*
+Times:
+
+Counter: 4.524 seconds
+Counter mutex: 20.778 seconds
+
+Synchronization is ~5 times slower.
+*/
