@@ -38,11 +38,12 @@ int pop(Node **head) {
     if (*head == NULL) {
         return -1;
     }
-
+    // Making a copy of it seems to help with freeing
+    Node* h = *head;
     next_node = (*head)->next;
     retval = (*head)->val;
     *head = next_node;
-
+    free(h);
     return retval;
 }
 
@@ -71,6 +72,7 @@ int remove_by_value(Node **head, int val) {
 	if (node->next->val == val) {
 	    victim = node->next;
 	    node->next = victim->next;
+        free(victim);
 	    return 1;
 	}
     }
@@ -161,7 +163,13 @@ int main() {
     print_list(empty);
 
     Node *something = make_something();
-    free(something);
+    //free(something); this would only free the first element
+
+    free(empty);
+    // iterate LL and pop all elements
+    while(pop(&test_list) != -1);
+    while(pop(&something) != -1);
+
 
     return 0;
 }
