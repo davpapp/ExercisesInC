@@ -1,5 +1,8 @@
 /* Example code for Exercises in C
 
+Author: David Papp
+Class: Soft Sys 2017
+
 Copyright 2016 Allen Downey
 License: Creative Commons Attribution-ShareAlike 3.0
 
@@ -31,12 +34,14 @@ gint compare_pair (gpointer v1, gpointer v2, gpointer user_data)
     return p1->freq - p2->freq;
 }
 
+// Free key value elements from hash
 void free_hash(gpointer v1, gpointer v2, gpointer user_data) {
     //Pair *p1 = (Pair* )
     g_free(v1);//, gpointer v2);
     g_free(v2);
 }
 
+// Free sequence elements
 void free_seq(gpointer v1, gpointer user_data) {
     g_free(v1);
 }
