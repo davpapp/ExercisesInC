@@ -31,6 +31,15 @@ gint compare_pair (gpointer v1, gpointer v2, gpointer user_data)
     return p1->freq - p2->freq;
 }
 
+void free_hash(gpointer v1, gpointer v2, gpointer user_data) {
+    //Pair *p1 = (Pair* )
+    g_free(v1);//, gpointer v2);
+    g_free(v2);
+}
+
+void free_seq(gpointer v1, gpointer user_data) {
+    g_free(v1);
+}
 
 /* Iterator that prints pairs. */
 void pair_printor (gpointer value, gpointer user_data)
@@ -67,11 +76,14 @@ void incr (GHashTable* hash, gchar *key)
     gint *val = (gint *) g_hash_table_lookup (hash, key);
 
     if (val == NULL) {
-	gint *val1 = g_new (gint, 1);
-	*val1 = 1;
-	g_hash_table_insert (hash, key, val1);
-    } else {
-	*val += 1;
+        // create a duplicate so that array and the keys can be freed both
+        gchar* key_cpy = g_strdup(key);
+    	gint *val1 = g_new (gint, 1);
+    	*val1 = 1;
+    	g_hash_table_insert (hash, key_cpy, val1);
+    } 
+    else {
+        *val += 1;
     }
 }
 
@@ -81,16 +93,17 @@ int main (int argc, char** argv)
 
     // open the file
     if (argc > 1) {
-	filename = argv[1];
-    } else {
-	filename = "emma.txt";
+       filename = argv[1];
+    }
+     else {
+	   filename = "emma.txt";
     }
 
     FILE *fp = g_fopen(filename, "r");
     if (fp == NULL) {
 	perror (filename);
 	exit (-10);
-    }
+}
 
     /* string array is a (two-L) NULL terminated array of pointers to
        (one-L) NUL terminated strings */
@@ -101,16 +114,16 @@ int main (int argc, char** argv)
 
     // read lines from the file and build the hash table
     while (1) {
-	gchar *res = fgets (line, sizeof(line), fp);
-	if (res == NULL) break;
+    	gchar *res = fgets (line, sizeof(line), fp);
+    	if (res == NULL) break;
 
-	array = g_strsplit(line, " ", 0);
-	for (i=0; array[i] != NULL; i++) {
-	    incr(hash, array[i]);
-	}
+    	array = g_strsplit(line, " ", 0);
+    	for (i=0; array[i] != NULL; i++) {
+    	    incr(hash, array[i]);
+    	}
+        g_strfreev(array);
     }
     fclose (fp);
-
     // print the hash table
     // g_hash_table_foreach (hash,  (GHFunc) printor, "Word %s freq %d\n");
 
@@ -123,8 +136,15 @@ int main (int argc, char** argv)
 
     // try (unsuccessfully) to free everything
     // (in a future exercise, we will fix the memory leaks)
+    //g_free(hash);
+
+    // we must delete each element of the hashtable individually
+    g_hash_table_foreach(hash, (GHFunc) free_hash, (gpointer) hash);
+    g_sequence_foreach(seq, (GFunc) free_seq, (gpointer) seq);
+
     g_hash_table_destroy (hash);
     g_sequence_free (seq);
+
 
     return 0;
 }
